@@ -56,7 +56,7 @@ RUN : \
 
 WORKDIR /src
 
-COPY server/swagger_server /src/swagger_server
+COPY server/server /src/server
 
 # link apache config to docker logs
 RUN : \
