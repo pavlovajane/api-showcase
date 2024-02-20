@@ -66,3 +66,7 @@ RUN : \
     && :
 
 CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+
+EXPOSE 8000
+
+ENTRYPOINT ["/app/django.sh"]
