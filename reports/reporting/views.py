@@ -16,3 +16,7 @@ def list_reports(request):
     }
 
     return Response(content)
+
+@api_view(["POST"])
+def create_report(request):
+    pass
