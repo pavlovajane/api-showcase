@@ -9,3 +9,4 @@ gunicorn==20.0.4
 whitenoise==5.0.1
 PyYAML==5.4
 boto3==1.34.46
+django_cors_headers==4.3.1

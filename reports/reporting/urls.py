@@ -18,5 +18,6 @@ from django.urls import path
 from reporting import views
 
 urlpatterns = [
-    path("list_reports/", views.list_reports)
+    path("reports/", views.list_reports),
+    path("report/", views.create_report)
 ]
