@@ -4,7 +4,7 @@ from django.db import models
 class Report(models.Model):
    
     title = models.CharField(max_length = 5)
-    date = models.DateField()
+    date = models.DateField(empty=False)
     body = models.TextField()
 
     class Meta:

@@ -22,8 +22,10 @@ def list_reports(request):
 def create_report(request):
     serializer = ReportSerializer(data=request.data)
     
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
+    date = request.POST.get("date", None)
+    if date is not None:
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
