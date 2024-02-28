@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import Report
 from rest_framework import status
 from .serializers import ReportSerializer
+from messaging.producer import *
 
 # Create your views here.
 @api_view(["GET"])
@@ -25,7 +26,10 @@ def create_report(request):
     date = request.POST.get("date", None)
     if date is not None:
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            try:
+                message_id = send_message(serializer.data)
+            except Exception as error:
+                return Response(error, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(message_id, status=status.HTTP_202_ACCEPTED)
         
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
