@@ -22,14 +22,14 @@ def list_reports(request):
 @api_view(["POST"])
 def create_report(request):
     serializer = ReportSerializer(data=request.data)
-    
-    date = request.POST.get("date", None)
-    if date is not None:
-        if serializer.is_valid():
+    if serializer.is_valid():
+        date = request.data.get("date", None) 
+        print(date)
+        if date is not None:    
             try:
                 message_id = send_message(serializer.data)
             except Exception as error:
-                return Response(error, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response(str(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             return Response(message_id, status=status.HTTP_202_ACCEPTED)
         
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
